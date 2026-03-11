@@ -24,7 +24,7 @@ func generateRandomElements(size int) []int {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	for i := 0; i < size; i++ {
-		elements[i] = r.Intn(1234) + 1
+		elements[i] = r.Int()
 	}
 
 	return elements
@@ -72,12 +72,12 @@ func maxChunks(data []int) int {
 
 		go func(i int, chunk []int) {
 			defer wg.Done()
-			maxValues[i] = slices.Max(chunk)
+			maxValues[i] = maximum(chunk)
 		}(i, chunk)
 	}
 
 	wg.Wait()
-	return slices.Max(maxValues)
+	return maximum(maxValues)
 }
 
 func main() {
